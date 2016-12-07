@@ -1,33 +1,18 @@
-import express from 'express'
+import express from 'express';
 const app = express();
-import 'isomorphic-fetch';
+import request from 'request';
 const bodyParser = require('body-parser');
-const router = express.Router();
-
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const port = process.env.PORT || 8080;
 
-router.get('/litecoin-btce', function(req, res) {
-    fetch("http://www.flickr.com/services/feeds/photos_public.gne?tags=soccer&format=json")
-    .then((response) => {
-    if (response.status !== 200) {
-      console.log('Looks like there was a problem. Status Code: ')
-      console.log(JSON.parse(response));
-      return;
-    }
-    console.log(response);
-    console.log('-=-=-=-=-=-AYYYY-=-=-=-=-=-=-');
-    response.json().then(function(data) {
-      console.log(data);
-    });
-  })
-  .catch(function(err) {
-    console.log('Fetch Error :-S', err);
-  });
-  res.json(response);
+app.get('/litecoin-btce', function(req, res) {
+    request("https://btc-e.com/api/3/ticker/btc_usd", function (error, response, body) {
+      console.log(typeof body);
+      res.send(body)
+    })
 });
 
 app.get('/bitcoin-btce', function(req, res) {
@@ -40,7 +25,7 @@ app.get('/bitcoin-btce', function(req, res) {
       }
     })
     */
-    res.send(JSON.stringify({test:thing}));
+    res.send(JSON.stringify({newkidsontheblock: "sucking a lot of dick"}));
 });
 
 app.listen(port);
