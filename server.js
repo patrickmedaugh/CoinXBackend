@@ -23,7 +23,8 @@ app.get('/bitcoin-btce', (req, res) => {
 });
 
 app.get('/dash-poloniex', (req, res) => {
-    request("https://poloniex.com/public?command=returnTradeHistory&currencyPair=BTC_DASH&depth=20", function (error, response, body) {
+    const lastSecond = (new Date().getTime() / 1000) - 1000;
+    request("https://poloniex.com/public?command=returnTradeHistory&currencyPair=BTC_DASH&start=" + lastSecond, function (error, response, body) {
       res.send(JSON.parse(body))
     })
 });
