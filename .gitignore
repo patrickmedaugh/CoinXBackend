@@ -1,0 +1,8 @@
+
+# exclude everything
+db/*
+
+# exception to the rule
+!db/.gitkeep
+
+npm-debug.log
