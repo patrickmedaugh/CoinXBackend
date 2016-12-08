@@ -27,7 +27,16 @@ app.get('/btce/litecoin', (req, res) => {
     request("https://btc-e.com/api/3/ticker/ltc_btc", (error, response, body) => {
       const data = JSON.parse(body).ltc_btc;
       data.created_at = new Date();
-      litecoinCollect.insert({api: 'btce', data: data});
+      MongoClient.connect(mongoUrl, (err, db) => {
+        if (err) {
+          console.log('Unable to connect to the litecoin collection: ', err);
+        } else {
+          console.log('Connection established to litecoin collection');
+          const collection = db.collection('litecoin');
+          collection.insert({api: 'btce', data: data});
+        }
+        db.close();
+      });
       res.send(data);
     });
 });
@@ -36,7 +45,16 @@ app.get('/btce/bitcoin', (req, res) => {
     request("https://btc-e.com/api/3/ticker/btc_usd", (error, response, body) => {
       const data = JSON.parse(body).btc_usd;
       data.created_at = new Date();
-      bitcoinCollect.insert({api: 'btce', data: data});
+      MongoClient.connect(mongoUrl, (err, db) => {
+        if (err) {
+          console.log('Unable to connect to the bitcoin collection: ', err);
+        } else {
+          console.log('Connection established to bitcoin collection');
+          const collection = db.collection('bitcoin');
+          collection.insert({api: 'btce', data: data});
+        }
+        db.close();
+      });
       res.send(data);
     });
 });
@@ -45,7 +63,16 @@ app.get('/btce/dash', (req, res) => {
   request("https://btc-e.com/api/3/ticker/dsh_btc", (error, response, body) => {
     const data = JSON.parse(body).dsh_btc;
     data.created_at = new Date();
-    dashCollect.insert({api: 'btce', data: data});
+    MongoClient.connect(mongoUrl, (err, db) => {
+      if (err) {
+        console.log('Unable to connect to the dash collection: ', err);
+      } else {
+        console.log('Connection established to dash collection');
+        const collection = db.collection('dash');
+        collection.insert({api: 'btce', data: data});
+      }
+      db.close();
+    });
     res.send(data);
   })
 })
@@ -54,7 +81,16 @@ app.get('/btce/ethereum', (req, res) => {
   request("https://btc-e.com/api/3/ticker/eth_btc", (error, response, body) => {
     const data = JSON.parse(body).eth_btc;
     data.created_at = new Date();
-    ethereumCollect.insert({api: 'btce', data: data});
+    MongoClient.connect(mongoUrl, (err, db) => {
+      if (err) {
+        console.log('Unable to connect to the ethereum collection: ', err);
+      } else {
+        console.log('Connection established to ethereum collection');
+        const collection = db.collection('ethereum');
+        collection.insert({api: 'btce', data: data});
+      }
+      db.close();
+    });
     res.send(data);
   });
 });
@@ -64,7 +100,16 @@ app.get('/poloniex/dash', (req, res) => {
     request("https://poloniex.com/public?command=returnTradeHistory&currencyPair=BTC_DASH&start=" + lastSecond, (error, response, body) => {
       const data = JSON.parse(body);
       const avgRate = poloniex.formatAvgAttr(data, "rate");
-      dashCollect.insert({api: 'poloniex', data: { rate: avgRate, created_at: new Date() }});
+      MongoClient.connect(mongoUrl, (err, db) => {
+        if (err) {
+          console.log('Unable to connect to the dash collection: ', err);
+        } else {
+          console.log('Connection established to dash collection');
+          const collection = db.collection('dash');
+          collection.insert({api: 'poloniex', data: { rate: avgRate, created_at: new Date() }});
+        }
+        db.close();
+      });
       res.send(avgRate);
     })
 });
@@ -74,7 +119,16 @@ app.get('/poloniex/litecoin', (req, res) => {
     request("https://poloniex.com/public?command=returnTradeHistory&currencyPair=BTC_LTC&start=" + lastSecond, (error, response, body) => {
       const data = JSON.parse(body);
       const avgRate = poloniex.formatAvgAttr(data, "rate");
-      litecoinCollect.insert({api: 'poloniex', data: { rate: avgRate, created_at: new Date() }});
+      MongoClient.connect(mongoUrl, (err, db) => {
+        if (err) {
+          console.log('Unable to connect to the litecoin collection: ', err);
+        } else {
+          console.log('Connection established to litecoin collection');
+          const collection = db.collection('litecoin');
+          collection.insert({api: 'poloniex', data: { rate: avgRate, created_at: new Date() }});
+        }
+        db.close();
+      });
       res.send(avgRate);
     })
 });
@@ -84,7 +138,16 @@ app.get('/poloniex/ethereum', (req, res) => {
     request("https://poloniex.com/public?command=returnTradeHistory&currencyPair=BTC_ETH&start=" + lastSecond, (error, response, body) => {
       const data = JSON.parse(body);
       const avgRate = poloniex.formatAvgAttr(data, "rate");
-      ethereumCollect.insert({api: 'poloniex', data: { rate: avgRate, created_at: new Date() }});
+      MongoClient.connect(mongoUrl, (err, db) => {
+        if (err) {
+          console.log('Unable to connect to the ethereum collection: ', err);
+        } else {
+          console.log('Connection established to ethereum collection');
+          const collection = db.collection('ethereum');
+          collection.insert({api: 'poloniex', data: { rate: avgRate, created_at: new Date() }});
+        }
+        db.close();
+      });
       res.send(avgRate);
     })
 });
