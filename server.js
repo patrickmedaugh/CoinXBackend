@@ -13,21 +13,15 @@ const port = process.env.PORT || 8080;
 
 const MongoClient = mongodb.MongoClient;
 const mongoUrl = 'mongodb://localhost:27017/currency'
-let litecoinCollect;
-let bitcoinCollect;
-let ethereumCollect;
-let dashCollect;
+
 MongoClient.connect(mongoUrl, (err, db) => {
   if (err) {
     console.log('Unable to connect to Mongo Server: ', err);
   } else {
     console.log('Connected to MongoDB');
-     litecoinCollect  = db.collection('litecoin');
-     bitcoinCollect   = db.collection('bitcoin');
-     ethereumCollect  = db.collection('ethereum');
-     dashCollect      = db.collection('dash');
   }
 });
+
 
 app.get('/btce/litecoin', (req, res) => {
     request("https://btc-e.com/api/3/ticker/ltc_btc", (error, response, body) => {
@@ -93,6 +87,73 @@ app.get('/poloniex/ethereum', (req, res) => {
       ethereumCollect.insert({api: 'poloniex', data: { rate: avgRate, created_at: new Date() }});
       res.send(avgRate);
     })
+});
+
+app.get('/chart/litecoin', (req, res) => {
+  MongoClient.connect(mongoUrl, (err, db) => {
+  if (err) {
+    console.log('Unable to connect to the litecoin collection: ', err);
+  } else {
+    console.log('Connection established to litecon collection');
+    const collection = db.collection('litecoin');
+
+    collection.find({'api':'poloniex'}).limit(20).toArray((err, result) => {
+      if (err) {
+        res.send(err);
+      } else if (result.length) {
+        res.json(result);
+      } else {
+        res.send('No documents found');
+      }
+      db.close();
+    });
+  }
+  });
+
+});
+
+app.get('/chart/ethereum', (req, res) => {
+  MongoClient.connect(mongoUrl, (err, db) => {
+  if (err) {
+    console.log('Unable to connect to the ethereum collection: ', err);
+  } else {
+    console.log('Connection established to ethereum collection');
+    const collection = db.collection('ethereum');
+
+    collection.find({'api':'poloniex'}).limit(20).toArray((err, result) => {
+      if (err) {
+        res.send(err);
+      } else if (result.length) {
+        res.json(result);
+      } else {
+        res.send('No documents found');
+      }
+      db.close();
+    });
+  }
+  });
+});
+
+app.get('/chart/dash', (req, res) => {
+  MongoClient.connect(mongoUrl, (err, db) => {
+  if (err) {
+    console.log('Unable to connect to the dash collection: ', err);
+  } else {
+    console.log('Connection established to dash collection');
+    const collection = db.collection('dash');
+
+    collection.find({'api':'poloniex'}).limit(20).toArray((err, result) => {
+      if (err) {
+        res.send(err);
+      } else if (result.length) {
+        res.json(result);
+      } else {
+        res.send('No documents found');
+      }
+      db.close();
+    });
+  }
+  });
 });
 
 app.listen(port, () => {

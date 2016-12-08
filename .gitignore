@@ -1,7 +1,7 @@
 
 # exclude everything
 db/*
-db/diagnostic.data/metrics.interim
+db/diagnostic.data/*
 db/journal/*
 
 # exception to the rule
