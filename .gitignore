@@ -1,6 +1,8 @@
 
 # exclude everything
 db/*
+db/diagnostic.data/*
+db/journal/*
 
 # exception to the rule
 !db/.gitkeep
