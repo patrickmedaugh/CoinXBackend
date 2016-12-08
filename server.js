@@ -31,25 +31,25 @@ MongoClient.connect(mongoUrl, (err, db) => {
 
 app.get('/btce/litecoin', (req, res) => {
     request("https://btc-e.com/api/3/ticker/ltc_btc", (error, response, body) => {
-      const data = JSON.parse(body);
+      const data = JSON.parse(body).ltc_btc;
       data.created_at = new Date();
-      litecoinCollect.insert({api: 'btce', data: data.ltc_btc});
+      litecoinCollect.insert({api: 'btce', data: data});
       res.send(data);
     });
 });
 
 app.get('/btce/bitcoin', (req, res) => {
     request("https://btc-e.com/api/3/ticker/btc_usd", (error, response, body) => {
-      const data = JSON.parse(body);
+      const data = JSON.parse(body).btc_usd;
       data.created_at = new Date();
-      bitcoinCollect.insert({api: 'btce', data: data.btc_usd});
+      bitcoinCollect.insert({api: 'btce', data: data});
       res.send(data);
     });
 });
 
 app.get('/btce/dash', (req, res) => {
   request("https://btc-e.com/api/3/ticker/dsh_btc", (error, response, body) => {
-    const data = JSON.parse(body);
+    const data = JSON.parse(body).dsh_btc;
     data.created_at = new Date();
     dashCollect.insert({api: 'btce', data: data});
     res.send(data);
@@ -58,7 +58,7 @@ app.get('/btce/dash', (req, res) => {
 
 app.get('/btce/ethereum', (req, res) => {
   request("https://btc-e.com/api/3/ticker/eth_btc", (error, response, body) => {
-    const data = JSON.parse(body);
+    const data = JSON.parse(body).eth_btc;
     data.created_at = new Date();
     ethereumCollect.insert({api: 'btce', data: data});
     res.send(data);
