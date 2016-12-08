@@ -12,8 +12,8 @@ class PoloniexService {
     });
   };
 
-  formatAvg(arr) {
-    const rates = this.mapAttr(arr, "rate");
+  formatAvgAttr(arr, attr) {
+    const rates = this.mapAttr(arr, attr);
     return parseFloat(this.total(rates) / rates.length).toFixed(4).toString();
   }
 }
