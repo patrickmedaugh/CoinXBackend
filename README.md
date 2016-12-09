@@ -11,5 +11,5 @@ Frontend repo: https://github.com/patrickmedaugh/CoinX
   * `npm test`
   
 ## To run server: 
-  * `mongo --dbpath ./db`
+  * `mongod --dbpath ./db`
   * `npm start` 
