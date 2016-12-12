@@ -1,12 +1,9 @@
 import express from 'express';
-import { poloniex } from './src/poloniexService.js';
+import { poloniex } from '../poloniexService.js';
 import request from 'request';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongodb from 'mongodb';
-import btceService from './src/routes/btce.js';
-import poloniexService from './src/routes/poloniex.js';
-import mongoService from './src/routes/mongo.js';
 
 const app = express();
 app.use(cors());
@@ -23,12 +20,4 @@ MongoClient.connect(mongoUrl, (err, db) => {
   } else {
     console.log('Connected to MongoDB');
   }
-});
-
-btceService(app);
-poloniexService(app);
-mongoService(app);
-
-app.listen(port, () => {
-  console.log("Listening on port ", port);
 });
