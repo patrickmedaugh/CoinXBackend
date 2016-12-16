@@ -28,7 +28,7 @@ export default function(app) {
         } else {
           console.log('Connection established to litecoin collection');
           const collection = db.collection('litecoin');
-          collection.insert({api: 'btce', data: data, created_at: new Date()});
+          collection.insert({api: 'btce', exchange: 'bitcoin', data: data, created_at: new Date()});
         }
         db.close();
       });
@@ -49,7 +49,7 @@ export default function(app) {
         } else {
           console.log('Connection established to bitcoin collection');
           const collection = db.collection('bitcoin');
-          collection.insert({api: 'btce', data: data, created_at: new Date()});
+          collection.insert({api: 'btce', exchange: 'bitcoin',  data: data, created_at: new Date()});
         }
         db.close();
       });
@@ -70,7 +70,7 @@ export default function(app) {
         } else {
           console.log('Connection established to dash collection');
           const collection = db.collection('dash');
-          collection.insert({api: 'btce', data: data, created_at: new Date()});
+          collection.insert({api: 'btce', exchange: 'bitcoin',  data: data, created_at: new Date()});
         }
         db.close();
       });
@@ -91,7 +91,7 @@ export default function(app) {
         } else {
           console.log('Connection established to ethereum collection');
           const collection = db.collection('ethereum');
-          collection.insert({api: 'btce', data: data, created_at: new Date()});
+          collection.insert({api: 'btce', exchange: 'bitcoin',  data: data, created_at: new Date()});
         }
         db.close();
       });
@@ -112,7 +112,7 @@ export default function(app) {
         } else {
           console.log('Connection established to litecoin collection');
           const collection = db.collection('litecoin');
-          collection.insert({api: 'btce', data: data, created_at: new Date()});
+          collection.insert({api: 'btce', exchange: 'usd',  data: data, created_at: new Date()});
         }
         db.close();
       });
@@ -133,7 +133,7 @@ export default function(app) {
         } else {
           console.log('Connection established to dash collection');
           const collection = db.collection('dash');
-          collection.insert({api: 'btce', data: data, created_at: new Date()});
+          collection.insert({api: 'btce', exchange: 'usd',  data: data, created_at: new Date()});
         }
         db.close();
       });
@@ -154,7 +154,7 @@ export default function(app) {
         } else {
           console.log('Connection established to ethereum collection');
           const collection = db.collection('ethereum');
-          collection.insert({api: 'btce', data: data, created_at: new Date()});
+          collection.insert({api: 'btce', exchange: 'usd',  data: data, created_at: new Date()});
         }
         db.close();
       });

@@ -2,7 +2,11 @@
 class PoloniexService {
   mapAttr(arr, attr) {
     return arr.map((x) => {
-      return parseFloat(x[attr]);
+      if (x[attr] !== undefined) {
+        return parseFloat(x[attr]);
+      } else {
+        return parseFloat(x['data'][attr]);
+      }
     });
   };
 
